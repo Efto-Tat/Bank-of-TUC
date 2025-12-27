@@ -1,9 +1,10 @@
 package dataAccessObjects;
 
-public class BillDAO {
-
+public class BillDAO extends DAO{
+	
 	public BillDAO() {
-		// TODO Auto-generated constructor stub
+		this.fileName = "bills";
 	}
+
 
 }

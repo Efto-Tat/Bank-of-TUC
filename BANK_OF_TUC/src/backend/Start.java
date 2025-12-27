@@ -1,6 +1,9 @@
 package backend;
 import java.util.ArrayList;
 import java.util.List;
+
+import managers.ConcreteUserManager;
+
 import java.util.Arrays;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -16,15 +19,8 @@ public class Start {
 	}
 
 	public static void main(String[] args) {
-		try {
-			List<List<String>> readInfo = readFile("users");
-			addUsers(readInfo);
-			
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		ConcreteUserManager userManager = ConcreteUserManager.getUserManager();
+		
 	}
 	
 	public static List<List<String>> readFile(String fileName) throws FileNotFoundException, IOException {

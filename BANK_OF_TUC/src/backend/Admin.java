@@ -1,6 +1,6 @@
 package backend;
 
-public class Admin {
+public class Admin extends AccountOwner{
 	AdminAccount account;
 	
 	public Admin() {

@@ -10,8 +10,9 @@ import java.util.List;
 
 public abstract class DAO {
 	
+	protected String fileName;
 	
-	public static List<List<String>> readFile(String fileName) throws FileNotFoundException, IOException {
+	public static List<List<String>> loadInfo(String fileName) throws FileNotFoundException, IOException {
 		List<List<String>> readInfo = new ArrayList<>();
 		try (BufferedReader br = new BufferedReader(new FileReader(fileName+".csv"))) {
 		    String line;
