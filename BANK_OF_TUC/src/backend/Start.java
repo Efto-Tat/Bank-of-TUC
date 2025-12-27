@@ -1,5 +1,7 @@
 package backend;
 
+import java.awt.desktop.PrintFilesEvent;
+
 import managers.UserManager;
 
 
@@ -13,7 +15,7 @@ public class Start {
 
 	public static void main(String[] args) {
 		UserManager userManager = UserManager.getUserManager();
-		
+		userManager.loadUsers();
 	}
 	
 

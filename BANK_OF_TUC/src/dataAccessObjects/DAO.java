@@ -12,9 +12,9 @@ public abstract class DAO {
 	
 	protected String fileName;
 	
-	public static List<List<String>> loadInfo(String fileName) throws FileNotFoundException, IOException {
+	public List<List<String>> loadInfo() throws FileNotFoundException, IOException {
 		List<List<String>> readInfo = new ArrayList<>();
-		try (BufferedReader br = new BufferedReader(new FileReader(fileName+".csv"))) {
+		try (BufferedReader br = new BufferedReader(new FileReader(this.fileName+".csv"))) {
 		    String line;
 		    while ((line = br.readLine()) != null) {
 		        String[] values = line.split(",");

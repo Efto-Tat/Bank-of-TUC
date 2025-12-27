@@ -14,17 +14,20 @@ public class AccountOwnerFactory {
 		if(accountType.equals("INDIVIDUAL")) {
 			Individual newIndividual = new Individual();
 			newIndividual.setName(personalInfo.get(1));
-			newIndividual.setAFM(personalInfo.get(3));
+			newIndividual.setAFM(personalInfo.get(2));
+			return newIndividual;
 		}
 		if(accountType.equals("BUSINESS")) {
 			Business newBusiness = new Business();
 			newBusiness.setName(personalInfo.get(1));
-			newBusiness.setAFM(personalInfo.get(3));
+			newBusiness.setAFM(personalInfo.get(2));
+			return newBusiness;
 		}
 		if(accountType.equals("ADMIN")) {
 			Admin newAdmin = new Admin();
 			newAdmin.setName(personalInfo.get(1));
-			newAdmin.setAFM(personalInfo.get(3));
+			newAdmin.setAFM(personalInfo.get(2));
+			return newAdmin;
 		}
 		return null;
 	}

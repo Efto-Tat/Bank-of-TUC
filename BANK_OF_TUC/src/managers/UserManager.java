@@ -10,16 +10,19 @@ import factories.AccountOwnerFactory;
 import factories.DAOFactory;
 
 public class UserManager{
-	//private DAOFactory daoFactory;
 	private static UserManager instance;
 	private UserDAO userDao;
-	private HashMap<Long,AccountOwner> users;
+	private HashMap<String,AccountOwner> users;
 	
 	private UserManager() {
 		this.userDao = (UserDAO) DAOFactory.createDAOFactory("users");
-		this.users = new HashMap<Long, AccountOwner>();
+		this.users = new HashMap<String, AccountOwner>();
 	}
 	
+	public HashMap<String, AccountOwner> getUsers() {
+		return users;
+	}
+
 	public static UserManager getUserManager() {
 		if(instance == null) {
 			instance = new UserManager();
@@ -52,7 +55,9 @@ public class UserManager{
 	}
 	
 	public void addUser(List<String> userInfo) {
-		AccountOwnerFactory.createAccountOwner(userInfo);
+		AccountOwner newUser = AccountOwnerFactory.createAccountOwner(userInfo);
+		users.put(newUser.getAFM(), newUser);
+		System.out.println("Added user: "+newUser.getName()+" "+newUser.getAFM());
 	}
 
 }
