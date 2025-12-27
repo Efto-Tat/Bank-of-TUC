@@ -7,7 +7,7 @@ public abstract class ClientAccount extends Account{
 	String accountIBAN;
 	int balance;
 	List<Bill> pendingBills;
-	List<Transaction> transactionHistory;
+	List<Transaction> transactionHistory; //change to statements
 	List<StandingOrder> standingOrders;
 	
 	public ClientAccount() {

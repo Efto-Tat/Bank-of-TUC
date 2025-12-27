@@ -1,8 +1,8 @@
 package managers;
 
-public class TransactionManager {
+public class BillManager {
 
-	public TransactionManager() {
+	public BillManager() {
 		// TODO Auto-generated constructor stub
 	}
 

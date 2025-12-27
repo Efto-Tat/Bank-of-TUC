@@ -1,6 +1,9 @@
 package managers;
 
-public interface AccountManager {
-	public AccountManager getAccountManager();
-}
+public class AccountManager {
 
+	public AccountManager() {
+		// TODO Auto-generated constructor stub
+	}
+
+}
