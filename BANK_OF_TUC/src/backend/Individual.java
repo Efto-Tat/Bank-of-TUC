@@ -1,13 +1,30 @@
 package backend;
 
-import java.util.List;
+import java.util.HashMap;
 
 public class Individual extends Client {
 	String dateOfBirth;
-	List<IndividualAccount> accounts;
+	HashMap<String,IndividualAccount> accounts;
 	
 	public Individual() {
-		// TODO Auto-generated constructor stub
+		this.accounts = new HashMap<String,IndividualAccount>();
 	}
+
+	public String getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(String dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public HashMap<String, IndividualAccount> getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(HashMap<String, IndividualAccount> accounts) {
+		this.accounts = accounts;
+	}
+	
 
 }

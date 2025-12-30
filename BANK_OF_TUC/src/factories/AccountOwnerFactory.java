@@ -29,6 +29,6 @@ public class AccountOwnerFactory {
 			newAdmin.setAFM(personalInfo.get(2));
 			return newAdmin;
 		}
-		return null;
+		throw new IllegalArgumentException("Unknown account type.");
 	}
 }

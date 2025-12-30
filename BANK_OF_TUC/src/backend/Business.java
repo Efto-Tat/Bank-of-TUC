@@ -7,4 +7,14 @@ public class Business extends Client{
 		// TODO Auto-generated constructor stub
 	}
 
+	public BusinessAccount getAccount() {
+		return account;
+	}
+
+	public void setAccount(BusinessAccount account) {
+		this.account = account;
+	}
+	
+	
+
 }

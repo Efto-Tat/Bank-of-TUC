@@ -4,6 +4,7 @@ import dataAccessObjects.BankAccountDAO;
 import dataAccessObjects.BillDAO;
 import dataAccessObjects.DAO;
 import dataAccessObjects.StandingOrderDAO;
+import dataAccessObjects.StatementDAO;
 import dataAccessObjects.UserDAO;
 
 public abstract class DAOFactory {
@@ -24,6 +25,10 @@ public abstract class DAOFactory {
 		if(fileName.equals("bankAccounts")) {
 			BankAccountDAO bankAccountsAccess = new BankAccountDAO();
 			return bankAccountsAccess;
+		}
+		if(fileName.equals("statements")) {
+			StatementDAO statementsAccess = new StatementDAO();
+			return statementsAccess;
 		}
 		throw new RuntimeException("Unknown file.");
 	}

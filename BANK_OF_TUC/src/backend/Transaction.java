@@ -1,14 +1,8 @@
 package backend;
 
 public abstract class Transaction extends Interaction {
-	
-	public enum transactionStatus{
-		PENDING,
-		SUCCESFUL,
-		FAILED
-	}
-	String date;
-	String time;
+	private String date;
+	private String time;
 	
 	public Transaction() {
 		

@@ -17,10 +17,30 @@ public abstract class DAO {
 		try (BufferedReader br = new BufferedReader(new FileReader(this.fileName+".csv"))) {
 		    String line;
 		    while ((line = br.readLine()) != null) {
-		        String[] values = line.split(",");
+		        String[] values = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"); //regex?
 		        readInfo.add(Arrays.asList(values));
 		    }
 		}
-		return readInfo;
+		
+		return cleanUp(readInfo);
 	}
+	
+	public List<List<String>> cleanUp(List<List<String>> dataMatrix){
+			int rows = dataMatrix.size();
+			int index=rows-1;
+			String buffer;
+			while(index>=0) {
+				List<String> curRow = dataMatrix.get(index);
+				int elements = curRow.size();
+				int subindex = elements;
+				while(subindex>0) {
+					buffer = curRow.get(subindex-1).replace("%", "").replace("€", "").replace(",", "").replace('"', ' ').trim();
+					curRow.set(subindex-1, buffer);
+					subindex--;
+				}
+				index--;
+			}
+			return dataMatrix;
+	}
+	
 }
