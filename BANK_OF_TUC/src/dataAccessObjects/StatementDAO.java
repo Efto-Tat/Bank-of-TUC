@@ -19,10 +19,6 @@ public class StatementDAO extends DAO{
 			bw.write(",");
 			bw.write(statement.getStatus().name());
 			bw.write(",");
-			if(statement.isStandingOrder()) {
-				bw.write("standingOrder");
-				bw.write(",");
-			}
 			bw.write(statement.getSenderIBAN());
 			bw.write(",");
 			bw.write(statement.getReceiverIBAN());

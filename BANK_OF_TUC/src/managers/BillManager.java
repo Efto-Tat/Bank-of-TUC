@@ -13,14 +13,12 @@ import factories.DAOFactory;
 
 public class BillManager {
 	private static BillManager instance;
-	private BillBuilder billBuilder;
 	private BillDAO billDao;
 	private HashMap<String,Bill> bills;
 	
 
 	public BillManager() {
 		this.billDao = (BillDAO) DAOFactory.createDAOFactory("bills");
-		this.billBuilder = new ConcreteBillBuilder();
 		this.bills = new HashMap<String, Bill>();
 	}
 	

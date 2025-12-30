@@ -39,18 +39,37 @@ public class AccountManager {
 	}
 	
 	public void deposit(ClientAccount account, float amount) {
+		addMoney(account,amount);
+		//StatementManager.getStatementManager();
+		//ISSUE A STATEMENT FOR THE DEPOSIT!
+	}
+	
+	public void withdraw(ClientAccount account, float amount) {
+		checkForIllegalAmount(amount);
+		float oldBalance = account.getBalance();
+		account.setBalance(oldBalance-amount);
+		//ISSUE A STATEMENT FOR THE WITHDRAWAL!!!
+	}
+	
+	public void transfer(ClientAccount sender, ClientAccount receiver, float amount) {
+		subtractMoney(sender, amount);
+		addMoney(receiver,amount);
+		//ISSUE A STATEMENT FOR THE STRANSFER!!!
+	}
+	
+	public void subtractMoney(ClientAccount account, float amount) {
+		checkForIllegalAmount(amount);
+		float oldBalance = account.getBalance();
+		checkForSufficientBalance(oldBalance,amount);
+		account.setBalance(oldBalance-amount);
+	}
+	
+	public void addMoney(ClientAccount account, float amount) {
+		checkForIllegalAmount(amount);
 		float oldBalance = account.getBalance();
 		account.setBalance(oldBalance+amount);
-		StatementManager.getStatementManager();
 	}
 
-	public HashMap<String, Account> getAccounts() {
-		return accounts;
-	}
-
-	public void setAccounts(HashMap<String, Account> accounts) {
-		this.accounts = accounts;
-	}
 	
 	public void loadAccounts() {
 		try {
@@ -78,6 +97,16 @@ public class AccountManager {
 		Account newAcc = accFactory.createBankAccount(accDetails, UserManager.getUserManager().getUsers());
 		accounts.put(((ClientAccount) newAcc).getAccountIBAN(), newAcc);
 		System.out.println("Added account: "+newAcc.getUsername()+" "+((ClientAccount) newAcc).getAccountIBAN());
+	}
+	
+	public void checkForIllegalAmount(float amount) {
+		if(amount<=0)
+			throw new IllegalArgumentException("The amount must be positive.");
+	}
+	
+	public void checkForSufficientBalance(float balance, float amount) {
+		if(balance<amount)
+			throw new  IllegalStateException("Insufficient Balance.");
 	}
 	
 	public void updateDB() {

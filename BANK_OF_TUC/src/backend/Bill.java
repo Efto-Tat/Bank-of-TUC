@@ -1,45 +1,34 @@
 package backend;
 
-public class Bill extends Interaction {
-	
+import java.util.HashMap;
+
+public class Bill extends RepeatedPayment {
 	private float amountPerBill;
 	private int remainingIssues;
 	private String rfCode;
-	private String dateIssued;
-	private String dueDate;
-	private String nextDateIssued;
-	private String billCode;
+	private String nextIssueDate;
 	private int issueFrequency;
+	private HashMap<String,BillPayment> issues;
 	
 	public Bill() {
-		// TODO Auto-generated constructor stub
+		this.issues = new HashMap<String,BillPayment>();
 	}
 	
-	public String getDueDate() {
-		return dueDate;
+	public HashMap<String, BillPayment> getIssues() {
+		return issues;
 	}
 
-
-
-
-	public void setDueDate(String dueDate) {
-		this.dueDate = dueDate;
+	public void setIssues(HashMap<String, BillPayment> issues) {
+		this.issues = issues;
 	}
-
-
-
 
 	public String getRfCode() {
 		return rfCode;
 	}
 
-
-
 	public void setRfCode(String rfCode) {
 		this.rfCode = rfCode;
 	}
-
-
 
 	public float getAmountPerBill() {
 		return amountPerBill;
@@ -57,28 +46,12 @@ public class Bill extends Interaction {
 		this.remainingIssues = remainingIssues;
 	}
 
-	public String getDateIssued() {
-		return dateIssued;
+	public String getNextIssueDate() {
+		return nextIssueDate;
 	}
 
-	public void setDateIssued(String dateIssued) {
-		this.dateIssued = dateIssued;
-	}
-
-	public String getNextDateIssued() {
-		return nextDateIssued;
-	}
-
-	public void setNextDateIssued(String nextDateIssued) {
-		this.nextDateIssued = nextDateIssued;
-	}
-
-	public String getBillCode() {
-		return billCode;
-	}
-
-	public void setBillCode(String billCode) {
-		this.billCode = billCode;
+	public void setNextIssueDate(String nextIssueDate) {
+		this.nextIssueDate = nextIssueDate;
 	}
 
 	public int getIssueFrequency() {

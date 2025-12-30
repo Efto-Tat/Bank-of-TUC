@@ -4,116 +4,61 @@ import backend.InteractionStatus;
 import backend.InteractionType;
 import backend.Statement;
 
-public abstract class StatementBuilder {
-	private String receiverIban;
-	private String senderIban;
-	private String rfCode;
-	private String reasoning;
-	private float amount;
-	private boolean isStandingOrder;
-	private String date;
-	private String time;
-	private InteractionType type;
-	private InteractionStatus status;
-	private String receiverName;
-	private String senderName;
+public class StatementBuilder {
 	
-	public abstract Statement build();
-
-	public String getReceiverIban() {
-		return receiverIban;
+	private Statement statement = new Statement();
+	
+	public Statement build() {
+		return this.statement;
+	}
+	
+	
+	public StatementBuilder setType(InteractionType type) {
+		this.statement.setType(type);
+		return this;
 	}
 
-	public void setReceiverIban(String receiverIban) {
-		this.receiverIban = receiverIban;
+	public StatementBuilder setReceiverIban(String receiverIban) {
+		this.statement.setReceiverIBAN(receiverIban);
+		return this;
 	}
 
-	public String getSenderIban() {
-		return senderIban;
+	public StatementBuilder setSenderIban(String senderIban) {
+		this.statement.setSenderIBAN(senderIban);
+		return this;
 	}
 
-	public void setSenderIban(String senderIban) {
-		this.senderIban = senderIban;
+	public StatementBuilder setRfCode(String rfCode) {
+		this.statement.setRfCode(rfCode);
+		return this;
 	}
 
-	public String getRfCode() {
-		return rfCode;
+
+	public StatementBuilder setReasoning(String reasoning) {
+		this.statement.setReasoning(reasoning);
+		return this;
 	}
 
-	public void setRfCode(String rfCode) {
-		this.rfCode = rfCode;
+	public StatementBuilder setAmount(float amount) {
+		this.statement.setAmount(amount);
+		return this;
 	}
 
-	public String getReasoning() {
-		return reasoning;
+
+	public StatementBuilder setDate(String date) {
+		this.statement.setDate(date);
+		return this;
 	}
 
-	public void setReasoning(String reasoning) {
-		this.reasoning = reasoning;
+
+	public StatementBuilder setTime(String time) {
+		this.statement.setTime(time);
+		return this;
 	}
 
-	public float getAmount() {
-		return amount;
-	}
-
-	public void setAmount(float amount) {
-		this.amount = amount;
-	}
-
-	public boolean isStandingOrder() {
-		return isStandingOrder;
-	}
-
-	public void setStandingOrder(boolean isStandingOrder) {
-		this.isStandingOrder = isStandingOrder;
-	}
-
-	public String getDate() {
-		return date;
-	}
-
-	public void setDate(String date) {
-		this.date = date;
-	}
-
-	public String getTime() {
-		return time;
-	}
-
-	public void setTime(String time) {
-		this.time = time;
-	}
-
-	public InteractionType getType() {
-		return type;
-	}
-
-	public void setType(InteractionType type) {
-		this.type = type;
-	}
-
-	public InteractionStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(InteractionStatus status) {
-		this.status = status;
-	}
-
-	public String getReceiverName() {
-		return receiverName;
-	}
-
-	public void setReceiverName(String receiverName) {
-		this.receiverName = receiverName;
-	}
-
-	public String getSenderName() {
-		return senderName;
-	}
-
-	public void setSenderName(String senderName) {
-		this.senderName = senderName;
+	public StatementBuilder setStatus(InteractionStatus status) {
+		this.statement.setStatus(status);
+		return this;
 	}
 	
 	

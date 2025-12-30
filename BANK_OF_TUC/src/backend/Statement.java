@@ -1,37 +1,33 @@
 package backend;
 
 public class Statement {
-	private InteractionType type;
 	private InteractionStatus status;
-	private boolean isStandingOrder;
+	private InteractionType type;
+	private float amount;
 	private String senderIBAN;
 	private String receiverIBAN;
 	private String rfCode;
 	private String date;
 	private String time;
 	private String reasoning;
-	
 
-	public Statement(InteractionType type, InteractionStatus status, boolean isStandingOrder, String senderIBAN,
-			String receiverIBAN, String rfCode, String date, String time, String reasoning) {
-		super();
-		this.type = type;
-		this.status = status;
-		this.isStandingOrder = isStandingOrder;
-		this.senderIBAN = senderIBAN;
-		this.receiverIBAN = receiverIBAN;
-		this.rfCode = rfCode;
-		this.date = date;
-		this.time = time;
-		this.reasoning = reasoning;
+
+	public Statement() {
 	}
-
+	
 	public InteractionType getType() {
 		return type;
 	}
 
 	public void setType(InteractionType type) {
 		this.type = type;
+	}
+
+	public void setAmount(float amount) {
+		this.amount = amount;
+	}
+	public float getAmount() {
+		return amount;
 	}
 
 	public InteractionStatus getStatus() {
@@ -42,13 +38,6 @@ public class Statement {
 		this.status = status;
 	}
 
-	public boolean isStandingOrder() {
-		return isStandingOrder;
-	}
-
-	public void setStandingOrder(boolean isStandingOrder) {
-		this.isStandingOrder = isStandingOrder;
-	}
 
 	public String getSenderIBAN() {
 		return senderIBAN;
@@ -98,6 +87,4 @@ public class Statement {
 		this.reasoning = reasoning;
 	}
 	
-	
-
 }

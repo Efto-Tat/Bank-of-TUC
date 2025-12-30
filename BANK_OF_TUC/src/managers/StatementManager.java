@@ -4,30 +4,26 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
-import backend.Interaction;
 import backend.Statement;
+import backend.Transaction;
 import dataAccessObjects.StatementDAO;
 import factories.DAOFactory;
-import builders.ConcreteStatementBuilder;
+import builders.StatementBuilder;
 import builders.StatementDirector;
 
 public class StatementManager {
-	private ConcreteStatementBuilder statementBuilder;
 	private static StatementManager instance;
 	private StatementDAO statementDao;
 	
 	private StatementManager() {
 		this.statementDao = (StatementDAO) DAOFactory.createDAOFactory("statements");
-		this.statementBuilder = new ConcreteStatementBuilder();
 	}
 	
 	public static StatementManager getStatementManager() {
 		if(instance == null) {
 			instance = new StatementManager();
-			return instance;
 		}
-		else
-			return instance;
+		return instance;
 	}
 	
 	public void loadHistories() {
@@ -53,14 +49,17 @@ public class StatementManager {
 	}
 	
 	public void loadStatement(List<String> statementInfo) {
-		ConcreteStatementBuilder statementBuilder = new ConcreteStatementBuilder();
+		StatementBuilder statementBuilder = new StatementBuilder();
 		StatementDirector director = new StatementDirector();
 		
 	}
 	
-	public Statement issueStatement(Interaction interaction) {
-		
-		return null;
+	public void issueStatement(Transaction transaction) {
+		StatementBuilder statementBuilder = new StatementBuilder();
+		StatementDirector director = new StatementDirector();
+		Statement newStatement = director.createStatement(statementBuilder, transaction);
+		statementDao.logStatement(newStatement);
 	}
+	
 
 }
