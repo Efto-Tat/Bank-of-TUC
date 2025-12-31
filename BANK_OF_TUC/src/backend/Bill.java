@@ -5,15 +5,32 @@ import java.util.HashMap;
 public class Bill extends RepeatedPayment {
 	private float amountPerBill;
 	private int remainingIssues;
+	private int dayOfIssue;
 	private String rfCode;
-	private String nextIssueDate;
-	private int issueFrequency;
+	private Integer issueFrequency;
+	private float totalAmountOwed;
 	private HashMap<String,BillPayment> issues;
 	
 	public Bill() {
 		this.issues = new HashMap<String,BillPayment>();
 	}
 	
+	public int getDayOfIssue() {
+		return dayOfIssue;
+	}
+
+	public void setDayOfIssue(int dayOfIssue) {
+		this.dayOfIssue = dayOfIssue;
+	}
+
+	public float getTotalAmountOwed() {
+		return totalAmountOwed;
+	}
+
+	public void setTotalAmountOwed(float totalAmountOwed) {
+		this.totalAmountOwed = totalAmountOwed;
+	}
+
 	public HashMap<String, BillPayment> getIssues() {
 		return issues;
 	}
@@ -46,19 +63,11 @@ public class Bill extends RepeatedPayment {
 		this.remainingIssues = remainingIssues;
 	}
 
-	public String getNextIssueDate() {
-		return nextIssueDate;
-	}
-
-	public void setNextIssueDate(String nextIssueDate) {
-		this.nextIssueDate = nextIssueDate;
-	}
-
-	public int getIssueFrequency() {
+	public Integer getIssueFrequency() {
 		return issueFrequency;
 	}
 
-	public void setIssueFrequency(int issueFrequency) {
+	public void setIssueFrequency(Integer issueFrequency) {
 		this.issueFrequency = issueFrequency;
 	}
 	

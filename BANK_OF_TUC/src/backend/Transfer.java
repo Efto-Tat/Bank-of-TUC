@@ -2,7 +2,6 @@ package backend;
 
 public class Transfer extends Transaction {
 	private String reason;
-	private String senderAFM;
 	
 	
 	public Transfer() {
@@ -20,15 +19,6 @@ public class Transfer extends Transaction {
 	}
 
 
-	public String getSenderAFM() {
-		return senderAFM;
-	}
-
-
-	public void setSenderAFM(String senderAFM) {
-		this.senderAFM = senderAFM;
-	}
-	
 	
 
 }

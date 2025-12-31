@@ -27,21 +27,7 @@ public class StatementManager {
 	}
 	
 	public void loadHistories() {
-		try {
-			List<List<String>> statementList = readStatements();
-			int rows = statementList.size();
-			int index=rows-1;
-			while(index>=0) {
-				loadStatement(statementList.get(index));
-				index--;
-			}
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 	}
 	
 	public List<List<String>> readStatements() throws FileNotFoundException, IOException{
@@ -49,8 +35,6 @@ public class StatementManager {
 	}
 	
 	public void loadStatement(List<String> statementInfo) {
-		StatementBuilder statementBuilder = new StatementBuilder();
-		StatementDirector director = new StatementDirector();
 		
 	}
 	

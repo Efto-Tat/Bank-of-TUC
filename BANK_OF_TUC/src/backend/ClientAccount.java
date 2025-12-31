@@ -18,6 +18,26 @@ public abstract class ClientAccount extends Account{
 		this.standingOrders = new ArrayList<StandingOrder>();
 	}
 	
+	
+	
+	public HashMap<String, Bill> getPendingBills() {
+		return pendingBills;
+	}
+
+
+
+	public ArrayList<Statement> getHistory() {
+		return history;
+	}
+
+
+
+	public ArrayList<StandingOrder> getStandingOrders() {
+		return standingOrders;
+	}
+
+
+
 	public String getUsername() {
 		return username;
 	}

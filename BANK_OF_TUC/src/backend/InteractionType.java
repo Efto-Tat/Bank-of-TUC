@@ -2,5 +2,7 @@ package backend;
 
 public enum InteractionType {
 	TRANSFER,
-	BILLPAYMENT
+	BILLPAYMENT,
+	DEPOSIT,
+	WITHDRAWAL
 }

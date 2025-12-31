@@ -38,7 +38,7 @@ public class BillPayment extends Transaction{
 		return billID;
 	}
 
-	public void setbillID(String billPaymentCode) {
+	public void setbillID(String billID) {
 		this.billID = billID;
 	}
 	

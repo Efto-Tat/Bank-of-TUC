@@ -16,6 +16,7 @@ public abstract class DAO {
 		List<List<String>> readInfo = new ArrayList<>();
 		try (BufferedReader br = new BufferedReader(new FileReader(this.fileName+".csv"))) {
 		    String line;
+		    br.readLine();
 		    while ((line = br.readLine()) != null) {
 		        String[] values = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"); //regex?
 		        readInfo.add(Arrays.asList(values));
@@ -34,7 +35,11 @@ public abstract class DAO {
 				int elements = curRow.size();
 				int subindex = elements;
 				while(subindex>0) {
-					buffer = curRow.get(subindex-1).replace("%", "").replace("€", "").replace(",", "").replace('"', ' ').trim();
+					if(subindex==4) {
+						buffer = curRow.get(subindex-1).replace('"', ' ').trim();
+					}
+					else
+						buffer = curRow.get(subindex-1).replace("%", "").replace("€", "").replace(",", "").replace('"', ' ').trim();
 					curRow.set(subindex-1, buffer);
 					subindex--;
 				}

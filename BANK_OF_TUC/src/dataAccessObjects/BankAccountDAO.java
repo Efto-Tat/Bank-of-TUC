@@ -21,6 +21,8 @@ public class BankAccountDAO extends DAO{
 	public void updateDatabase(HashMap<String,Account> accounts) { //Maybe improve this?
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter("bankAccounts.csv"))){
 			Collection<Account> bankAccounts = accounts.values();
+			bw.write("ACCOUNT IBAN, AFM, USERNAME, PASSWORD, INTEREST, BALANCE, SECONDARY HOLDERS/MONTHLY FEE");
+			bw.newLine();
 			for(Account curAcc : bankAccounts) {
 				bw.write(((ClientAccount) curAcc).getAccountIBAN());
 				bw.write(",");
@@ -28,15 +30,16 @@ public class BankAccountDAO extends DAO{
 				bw.write(",");
 				bw.write(curAcc.getUsername());
 				bw.write(",");
+				bw.write(curAcc.getPassword());
+				bw.write(",");
 				bw.write(formatInterest(Float.toString(((ClientAccount) curAcc).getInterestRate())));
 				bw.write(",");
 				bw.write(formatBalance(Float.toString(((ClientAccount) curAcc).getBalance())));
+				bw.write(",");
 				if(curAcc instanceof BusinessAccount) {
-					bw.write(",");
 					bw.write("€"+((BusinessAccount) curAcc).getMonthlyFee());
 				}
 				if((curAcc instanceof IndividualAccount) && ((IndividualAccount) curAcc).hasSecHolders()) {
-					bw.write(",");
 					Collection<Individual> secHolders = ((IndividualAccount) curAcc).getSecondaryHolders().values();
 					bw.write(formatSecHolders(secHolders));
 				}

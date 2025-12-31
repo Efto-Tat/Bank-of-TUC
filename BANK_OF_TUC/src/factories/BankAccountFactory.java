@@ -29,11 +29,11 @@ public class BankAccountFactory {
 		if(user instanceof Business) {
 			BusinessAccount newBusiness = new BusinessAccount();
 			newBusiness.setUsername(accDetails.get(2));
-			//+password!
 			newBusiness.setAccountIBAN(accDetails.get(0));
-			newBusiness.setInterestRate(Float.parseFloat(accDetails.get(3)));
-			newBusiness.setBalance(Float.parseFloat(accDetails.get(4)));
-			newBusiness.setMonthlyFee(Float.parseFloat(accDetails.get(5)));
+			newBusiness.setPassword(accDetails.get(3));
+			newBusiness.setInterestRate(Float.parseFloat(accDetails.get(4)));
+			newBusiness.setBalance(Float.parseFloat(accDetails.get(5)));
+			newBusiness.setMonthlyFee(Float.parseFloat(accDetails.get(6)));
 			newBusiness.setOwner(user);
 			((Business) user).setAccount(newBusiness);
 			return newBusiness;
@@ -42,12 +42,13 @@ public class BankAccountFactory {
 			IndividualAccount newIndividual = new IndividualAccount();
 			newIndividual.setUsername(accDetails.get(2));
 			newIndividual.setAccountIBAN(accDetails.get(0));
-			newIndividual.setInterestRate(Float.parseFloat(accDetails.get(3)));
-			newIndividual.setBalance(Float.parseFloat(accDetails.get(4)));
+			newIndividual.setPassword(accDetails.get(3));
+			newIndividual.setInterestRate(Float.parseFloat(accDetails.get(4)));
+			newIndividual.setBalance(Float.parseFloat(accDetails.get(5)));
 			newIndividual.setPrimaryHolder((Individual) user);
 			((Individual) user).getAccounts().put(newIndividual.getAccountIBAN(), newIndividual);
-			if(accDetails.size()>5) {
-				String secHolders = accDetails.get(5);
+			if(accDetails.size()>6) {
+				String secHolders = accDetails.get(6);
 				String[] splitHolders = secHolders.split(" ");
 				
 				for(int i=0; i<splitHolders.length; i++) {
