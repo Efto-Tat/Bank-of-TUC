@@ -14,23 +14,37 @@ public class BillDirector {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public BillRequest createRequestFromString(BillRequestBuilder builder, List<String> billInfo) {
+//	public BillRequest createRequestFromString(BillRequestBuilder builder, List<String> billInfo) {
+//		builder.setSenderIBAN(billInfo.get(0))
+//			.setRfCode(billInfo.get(1))
+//			.setRecipientIBAN(billInfo.get(2))
+//			.setAmountPerBill(Float.parseFloat(billInfo.get(3)));
+//		if(!billInfo.get(4).equals("")) {
+//			builder.setPerMonths(Integer.parseInt(billInfo.get(4)))
+//				.setDayOfIssue(Integer.parseInt(billInfo.get(5)))
+//				.setNumOfIssues(Integer.parseInt(billInfo.get(7)));
+//		}
+//		else
+//			builder.setNumOfIssues(1);
+//		
+//		return builder.build();
+//	}
+	
+	public Bill createBillFromFile(BillBuilder builder, List<String> billInfo) {
 		builder.setSenderIBAN(billInfo.get(0))
 			.setRfCode(billInfo.get(1))
-			.setRecipientIBAN(billInfo.get(2))
-			.setAmountPerBill(Float.parseFloat(billInfo.get(3)));
-		if(!billInfo.get(4).equals("")) {
-			builder.setPerMonths(Integer.parseInt(billInfo.get(4)))
-				.setDayOfIssue(Integer.parseInt(billInfo.get(5)))
-				.setNumOfIssues(Integer.parseInt(billInfo.get(7)));
+			.setReceiverIBAN(billInfo.get(2))
+			.setAmountPerBill(Float.parseFloat(billInfo.get(3)))
+			.setRemainingIssues(Integer.parseInt(billInfo.get(7)))
+			.setDayOfIssue(Integer.parseInt(billInfo.get(5)));
+		if(Integer.parseInt(billInfo.get(7))!=1) {
+			builder.setIssueFrequency(Integer.parseInt(billInfo.get(4)))
+			.setTotalAmount(Float.parseFloat(billInfo.get(6)));
 		}
-		else
-			builder.setNumOfIssues(1);
-		
 		return builder.build();
 	}
 	
-	public BillPayment createPaymentFromString(BillPaymentBuilder builder, List<String> paymentInfo) {
+	public BillPayment createPaymentFromFile(BillPaymentBuilder builder, List<String> paymentInfo) {
 		builder.setSenderIBAN(paymentInfo.get(0))
 			.setRfCode(paymentInfo.get(1))
 			.setbillID(paymentInfo.get(3))
@@ -49,25 +63,29 @@ public class BillDirector {
 		return builder.build();
 	}
 	
-	public BillPayment createPaymentFromRequest(BillPaymentBuilder builder, BillRequest request) {
-		builder.setSenderIBAN(request.getSenderIBAN())
-			.setRfCode(request.getRfCode())
-			.setStatus(InteractionStatus.PENDING)
-			.setbillID(null) //ADD BILL ID GENERATION!!!!
-			.setReceiverIBAN(request.getRecipientIBAN())
-			.setAmount(request.getAmountPerBill())
-			.setDateIssued(null) //ADD CALENDAR STUFF!!!!
-			.setDueDate(null);
-		return builder.build();
-	}
-	
-	public BillPayment createNextPayment(BillPaymentBuilder builder, Bill bill) {
+	public BillPayment createPayment(BillPaymentBuilder builder, Bill bill) {
 		
+		return null;
 	}
 	
-	public Bill createBillFromRequest(BillBuilder builder, BillRequest request) {
-		builder.set
-		return null;
+	public Bill createBillFromRequest(BillBuilder builder, BillRequest request, long rfCode) {
+		builder.setSenderIBAN(request.getSenderIBAN())
+			.setRfCode("RF"+rfCode)
+			.setReceiverIBAN(request.getRecipientIBAN())
+			.setAmountPerBill(request.getAmountPerBill())
+			.setRemainingIssues(request.getNumOfIssues());
+		
+		if(request.getNumOfIssues() == 1) {
+			builder.setIssueFrequency(0)
+				.setDayOfIssue(request.getDayOfIssue())
+				.setRemainingIssues(request.getNumOfIssues());
+			return builder.build();
+		}
+			
+		
+		builder.setIssueFrequency(request.getPerMonths())
+			.setDayOfIssue(request.getDayOfIssue());
+		return builder.build();
 	}
 
 }

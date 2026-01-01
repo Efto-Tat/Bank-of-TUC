@@ -5,14 +5,20 @@ import java.util.HashMap;
 public class BusinessAccount extends ClientAccount {
 	private float monthlyFee;
 	private HashMap<String,Bill> issuedBills;
+	private HashMap<String,BillPayment> issuedPayments;
 	
 	public BusinessAccount() {
 		super();
 		this.issuedBills = new HashMap<String,Bill>();
+		this.issuedPayments = new HashMap<String,BillPayment>();
 	}
 	
-	public void issueBill() {
-		
+	public HashMap<String, BillPayment> getIssuedPayments() {
+		return issuedPayments;
+	}
+
+	public HashMap<String,Bill> getIssuedBills(){
+		return this.issuedBills;
 	}
 	
 	public String getAccountIBAN() {

@@ -8,6 +8,22 @@ public class BillBuilder {
 	public Bill build() {
 		return this.bill;
 	}
+	
+	public BillBuilder setSenderIBAN(String senderIBAN) {
+		bill.setSenderIBAN(senderIBAN);
+		return this;
+	}
+	
+	public BillBuilder setReceiverIBAN(String receiverIBAN) {
+		bill.setReceiverIBAN(receiverIBAN);
+		return this;
+	}
+	
+	public BillBuilder setTotalAmount(float totalOwedAmount) {
+		bill.setTotalAmountOwed(totalOwedAmount);
+		return this;
+	}
+	
 
 	public BillBuilder setRfCode(String rfCode) {
 		bill.setRfCode(rfCode);
@@ -19,7 +35,7 @@ public class BillBuilder {
 		return this;
 	}
 
-	public BillBuilder setRemainingIssues(int remainingIssues) {
+	public BillBuilder setRemainingIssues(Integer remainingIssues) {
 		bill.setRemainingIssues(remainingIssues);
 		return this;
 	}

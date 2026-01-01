@@ -11,19 +11,22 @@ public abstract class ClientAccount extends Account{
 	private HashMap<String,Bill> pendingBills;
 	private ArrayList<Statement> history;
 	private ArrayList<StandingOrder> standingOrders;
+	private HashMap<String,BillPayment> pendingBillPayments;
 	
 	public ClientAccount() {
 		this.pendingBills = new HashMap<String,Bill>();
 		this.history = new ArrayList<Statement>();
 		this.standingOrders = new ArrayList<StandingOrder>();
+		this.pendingBillPayments = new HashMap<String,BillPayment>();
 	}
 	
-	
-	
+	public HashMap<String, BillPayment> getPendingBillPayments() {
+		return pendingBillPayments;
+	}
+
 	public HashMap<String, Bill> getPendingBills() {
 		return pendingBills;
 	}
-
 
 
 	public ArrayList<Statement> getHistory() {

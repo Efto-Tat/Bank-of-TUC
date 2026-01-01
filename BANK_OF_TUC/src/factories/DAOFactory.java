@@ -2,6 +2,7 @@ package factories;
 
 import dataAccessObjects.BankAccountDAO;
 import dataAccessObjects.BillDAO;
+import dataAccessObjects.BillPaymentDAO;
 import dataAccessObjects.DAO;
 import dataAccessObjects.StandingOrderDAO;
 import dataAccessObjects.StatementDAO;
@@ -29,6 +30,10 @@ public abstract class DAOFactory {
 		if(fileName.equals("statements")) {
 			StatementDAO statementsAccess = new StatementDAO();
 			return statementsAccess;
+		}
+		if(fileName.equals("issuedBills")) {
+			BillPaymentDAO billPaymentsAccess = new BillPaymentDAO();
+			return billPaymentsAccess;
 		}
 		throw new RuntimeException("Unknown file.");
 	}

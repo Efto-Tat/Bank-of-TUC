@@ -16,6 +16,8 @@ public class BillDAO extends DAO{
 	public void updateDatabase(HashMap<String,Bill> allBills) {
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter("bills.csv"))){
 			Collection<Bill> bills = allBills.values();
+			bw.write("SENDER IBAN, RF CODE, RECEIVER IBAN, AMOUNT PER ISSUE, ISSUE FREQUENCY (1 ISSUE PER # MONTHS), DAY OF ISSUE, TOTAL OWED AMOUNT, REMAINING NUMBER OF ISSUES");
+			bw.newLine();
 			for(Bill curBill : bills) {
 					bw.write(curBill.getSenderIBAN());
 					bw.write(",");
@@ -25,10 +27,15 @@ public class BillDAO extends DAO{
 					bw.write(",");
 					bw.write("€"+Float.toString(curBill.getAmountPerBill()));
 					bw.write(",");
-					if(curBill.getIssueFrequency() != null)	
-						bw.write(curBill.getIssueFrequency());
+					if(curBill.getIssueFrequency() != null) {
+						bw.write(curBill.getIssueFrequency().toString());
+					}
+					bw.write(",");
+					bw.write(curBill.getDayOfIssue().toString());
 					bw.write(",");
 					bw.write("€"+Float.toString(curBill.getTotalAmountOwed()));
+					bw.write(",");
+					bw.write(curBill.getRemainingIssues().toString());
 					bw.newLine();
 			}
 		} catch (IOException e) {

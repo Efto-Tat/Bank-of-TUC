@@ -35,11 +35,7 @@ public abstract class DAO {
 				int elements = curRow.size();
 				int subindex = elements;
 				while(subindex>0) {
-					if(subindex==4) {
-						buffer = curRow.get(subindex-1).replace('"', ' ').trim();
-					}
-					else
-						buffer = curRow.get(subindex-1).replace("%", "").replace("€", "").replace(",", "").replace('"', ' ').trim();
+					buffer = curRow.get(subindex-1).replace("%", "").replace("€", "").replace(",", "").replace('"', ' ').trim();
 					curRow.set(subindex-1, buffer);
 					subindex--;
 				}

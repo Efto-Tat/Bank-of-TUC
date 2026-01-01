@@ -16,6 +16,15 @@ public class Start {
 		BillManager billManager = BillManager.getBillManager();
 		userManager.loadUsers();
 		accManager.loadAccounts();
+		billManager.initBills();
+		BillRequest newRequest = new BillRequest();
+		newRequest.setAmountPerBill((float) 34.5);
+		newRequest.setRecipientIBAN("GR100202503111546003");
+		newRequest.setSenderIBAN("GR200202503131719401");
+		newRequest.setPerMonths(1);
+		newRequest.setDayOfIssue(2);
+		newRequest.setNumOfIssues(5);
+		billManager.createBill(newRequest);
 		accManager.updateDB();
 		billManager.updateDB();
 	}
