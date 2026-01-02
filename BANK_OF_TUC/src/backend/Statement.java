@@ -4,6 +4,7 @@ public class Statement {
 	private InteractionStatus status;
 	private InteractionType type;
 	private float amount;
+	private float balanceAfter;
 	private String senderIBAN;
 	private String receiverIBAN;
 	private String rfCode;
@@ -15,6 +16,20 @@ public class Statement {
 	public Statement() {
 	}
 	
+	
+	
+	public float getBalanceAfter() {
+		return balanceAfter;
+	}
+
+
+
+	public void setBalanceAfter(float balanceAfter) {
+		this.balanceAfter = balanceAfter;
+	}
+
+
+
 	public InteractionType getType() {
 		return type;
 	}

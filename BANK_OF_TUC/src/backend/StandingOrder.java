@@ -6,11 +6,19 @@ public abstract class StandingOrder extends RepeatedPayment {
 	private String startDate;
 	private String endDate;
 	private float paymentFee;
-	private ClientAccount owner;
-	private String chargedAccIBAN;
 	
 	public StandingOrder() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public String getStartDate() {
+		return startDate;
+	}
+	
+	
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
 	}
 
 	public String getOrderName() {
@@ -29,14 +37,6 @@ public abstract class StandingOrder extends RepeatedPayment {
 		this.description = description;
 	}
 
-	public String getStartDate() {
-		return startDate;
-	}
-
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
-	}
-
 	public String getEndDate() {
 		return endDate;
 	}
@@ -51,22 +51,6 @@ public abstract class StandingOrder extends RepeatedPayment {
 
 	public void setPaymentFee(float paymentFee) {
 		this.paymentFee = paymentFee;
-	}
-
-	public ClientAccount getOwner() {
-		return owner;
-	}
-
-	public void setOwner(ClientAccount owner) {
-		this.owner = owner;
-	}
-
-	public String getChargedAccIBAN() {
-		return chargedAccIBAN;
-	}
-
-	public void setChargedAccIBAN(String chargedAccIBAN) {
-		this.chargedAccIBAN = chargedAccIBAN;
 	}
 	
 	

@@ -26,6 +26,20 @@ public abstract class DAO {
 		return cleanUp(readInfo);
 	}
 	
+	
+	
+	public String getFileName() {
+		return fileName;
+	}
+
+
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+
+
 	public List<List<String>> cleanUp(List<List<String>> dataMatrix){
 			int rows = dataMatrix.size();
 			int index=rows-1;

@@ -15,7 +15,7 @@ public class UserManager{
 	private HashMap<String,AccountOwner> users;
 	
 	private UserManager() {
-		this.userDao = (UserDAO) DAOFactory.createDAOFactory("users");
+		this.userDao = (UserDAO) DAOFactory.createDAO("users");
 		this.users = new HashMap<String, AccountOwner>();
 	}
 	

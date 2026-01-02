@@ -18,7 +18,7 @@ public class AccountManager {
 	private HashMap<String,Account> accounts;
 	
 	private AccountManager() {
-		this.accDao = (BankAccountDAO) DAOFactory.createDAOFactory("bankAccounts");
+		this.accDao = (BankAccountDAO) DAOFactory.createDAO("bankAccounts");
 		this.accFactory = new BankAccountFactory();
 		this.accounts = new HashMap<String, Account>();
 	}

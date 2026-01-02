@@ -61,6 +61,11 @@ public class StatementBuilder {
 		return this;
 	}
 	
+	public StatementBuilder setBalanceAfter(float balanceAfter) {
+		this.statement.setBalanceAfter(balanceAfter);
+		return this;
+	}
+	
 	
 }
 

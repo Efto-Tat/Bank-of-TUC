@@ -6,7 +6,6 @@ import backend.Bill;
 import backend.BillPayment;
 import backend.BillRequest;
 import backend.InteractionStatus;
-import backend.Transaction;
 
 public class BillDirector {
 
@@ -63,9 +62,16 @@ public class BillDirector {
 		return builder.build();
 	}
 	
-	public BillPayment createPayment(BillPaymentBuilder builder, Bill bill) {
-		
-		return null;
+	public BillPayment createPayment(BillPaymentBuilder builder, Bill bill, long ID) {
+		builder.setSenderIBAN(bill.getSenderIBAN())
+			.setRfCode(bill.getRfCode())
+			.setStatus(InteractionStatus.PENDING)
+			.setbillID(Long.toString(ID))
+			.setReceiverIBAN(bill.getReceiverIBAN())
+			.setAmount(bill.getAmountPerBill())
+			.setDateIssued("DATE ISSUED") //ADD CALENDAR STUFF!!!
+			.setDueDate("DUE DATE");
+		return builder.build();
 	}
 	
 	public Bill createBillFromRequest(BillBuilder builder, BillRequest request, long rfCode) {

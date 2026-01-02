@@ -1,5 +1,8 @@
 package backend;
 
+import javax.swing.SwingUtilities;
+
+import gui.BankFrame;
 import managers.AccountManager;
 import managers.BillManager;
 import managers.UserManager;
@@ -17,14 +20,7 @@ public class Start {
 		userManager.loadUsers();
 		accManager.loadAccounts();
 		billManager.initBills();
-		BillRequest newRequest = new BillRequest();
-		newRequest.setAmountPerBill((float) 34.5);
-		newRequest.setRecipientIBAN("GR100202503111546003");
-		newRequest.setSenderIBAN("GR200202503131719401");
-		newRequest.setPerMonths(1);
-		newRequest.setDayOfIssue(2);
-		newRequest.setNumOfIssues(5);
-		billManager.createBill(newRequest);
+		SwingUtilities.invokeLater(BankFrame::new);
 		accManager.updateDB();
 		billManager.updateDB();
 	}

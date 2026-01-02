@@ -21,6 +21,8 @@ public class StatementDAO extends DAO{
 			bw.write(",");
 			bw.write(Float.toString(statement.getAmount()));
 			bw.write(",");
+			bw.write(Float.toString(statement.getBalanceAfter()));
+			bw.write(",");
 			bw.write(statement.getSenderIBAN());
 			bw.write(",");
 			bw.write(statement.getReceiverIBAN());

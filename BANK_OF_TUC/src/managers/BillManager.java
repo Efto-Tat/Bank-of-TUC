@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-import backend.Account;
 import backend.Bill;
 import backend.BillPayment;
 import backend.BillRequest;
@@ -25,13 +24,15 @@ public class BillManager {
 	private BillPaymentDAO paymentDAO;
 	private HashMap<String,Bill> bills;
 	private long rfCodeCounter;
+	private long idCounter;
 	
 
 	public BillManager() {
-		this.billDao = (BillDAO) DAOFactory.createDAOFactory("bills");
-		this.paymentDAO = (BillPaymentDAO) DAOFactory.createDAOFactory("issuedBills");
+		this.billDao = (BillDAO) DAOFactory.createDAO("bills");
+		this.paymentDAO = (BillPaymentDAO) DAOFactory.createDAO("issuedBills");
 		this.bills = new HashMap<String, Bill>();
 		this.rfCodeCounter = 0;
+		this.idCounter = 0;
 	}
 	
 	public static BillManager getBillManager() {
@@ -111,6 +112,11 @@ public class BillManager {
 			this.rfCodeCounter = rfNumber+1;
 	}
 	
+	public void updateIdCounter(BillPayment payment) {
+		if(Long.parseLong(payment.getbillID()) > this.idCounter)
+			this.idCounter = Long.parseLong(payment.getbillID()) + 1;
+	}
+	
 	public void addPaymentFromFile(List<String> paymentInfo) {
 		BillDirector director = new BillDirector();
 		BillPaymentBuilder builder = new BillPaymentBuilder();
@@ -119,6 +125,7 @@ public class BillManager {
 		BusinessAccount sender = (BusinessAccount) AccountManager.getAccountManager().getAccounts().get(payment.getSenderIBAN());
 		receiver.getPendingBillPayments().put(payment.getbillID(), payment);
 		sender.getIssuedBills().get(payment.getRfCode()).getIssues().put(payment.getbillID(), payment);
+		updateIdCounter(payment);
 	}
 	
 	public void createBill(BillRequest request) {
@@ -145,7 +152,8 @@ public class BillManager {
 		bill.addToTotal();
 		BillDirector director = new BillDirector();
 		BillPaymentBuilder builder = new BillPaymentBuilder();
-		BillPayment nextPayment = director.createPayment(builder, bill);
+		BillPayment nextPayment = director.createPayment(builder, bill, idCounter);
+		idCounter++;
 		bill.getIssues().put(nextPayment.getbillID(), nextPayment);
 		ClientAccount receiver = (ClientAccount) AccountManager.getAccountManager().getAccounts().get(bill.getReceiverIBAN());
 		receiver.getPendingBillPayments().put(nextPayment.getbillID(), nextPayment);
@@ -156,6 +164,18 @@ public class BillManager {
 		ClientAccount receiver = (ClientAccount) AccountManager.getAccountManager().getAccounts().get(bill.getReceiverIBAN());
 		receiver.getPendingBills().put(bill.getRfCode(), bill);
 		issuer.getIssuedBills().put(bill.getRfCode(), bill);
+	}
+	
+	public void deleteBill(Bill bill) {
+		BusinessAccount issuer = (BusinessAccount) AccountManager.getAccountManager().getAccounts().get(bill.getSenderIBAN());
+		ClientAccount receiver = (ClientAccount) AccountManager.getAccountManager().getAccounts().get(bill.getReceiverIBAN());
+		receiver.getPendingBills().remove(bill.getRfCode());
+		Collection<BillPayment> allIssues = bill.getIssues().values();
+		for(BillPayment issue : allIssues) {
+			receiver.getPendingBillPayments().remove(issue.getbillID());
+		}
+		issuer.getIssuedBills().remove(bill.getRfCode());
+		bills.remove(bill.getRfCode());
 	}
 	
 	public void updateDB() {

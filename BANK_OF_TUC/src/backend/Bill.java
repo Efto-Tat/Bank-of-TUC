@@ -8,6 +8,7 @@ public class Bill extends RepeatedPayment {
 	private Integer dayOfIssue;
 	private String rfCode;
 	private Integer issueFrequency;
+	private String dueDateForEach;
 	private float totalAmountOwed;
 	private HashMap<String,BillPayment> issues;
 	
@@ -15,6 +16,20 @@ public class Bill extends RepeatedPayment {
 		this.issues = new HashMap<String,BillPayment>();
 	}
 	
+	
+	
+	public String getDueDateForEach() {
+		return dueDateForEach;
+	}
+
+
+
+	public void setDueDateForEach(String dueDateForEach) {
+		this.dueDateForEach = dueDateForEach;
+	}
+
+
+
 	public void decreaseRemainingIssues() {
 		this.remainingIssues--;
 	}
