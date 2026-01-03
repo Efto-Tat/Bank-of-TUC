@@ -24,8 +24,6 @@ public class TransferStandingOrderDAO extends DAO{
 				bw.write(",");
 				bw.write(curOrder.getDescription());
 				bw.write(",");
-				bw.write(curOrder.getDescription()); //ADD OWNER NAME
-				bw.write(",");
 				bw.write("€"+Float.toString(((TransferStandingOrder) curOrder).getPaymentAmount()));
 				bw.write(",");
 				bw.write(curOrder.getStartDate());
@@ -38,9 +36,9 @@ public class TransferStandingOrderDAO extends DAO{
 				bw.write(",");
 				bw.write(curOrder.getReceiverIBAN());
 				bw.write(",");
-				bw.write(curOrder.getPerMonths());
+				bw.write(Integer.toString(curOrder.getPerMonths()));
 				bw.write(",");
-				bw.write(curOrder.getDayOfPayment());
+				bw.write(Integer.toString(curOrder.getDayOfPayment()));
 				bw.newLine();
 			}
 		} catch (IOException e) {

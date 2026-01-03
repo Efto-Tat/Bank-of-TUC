@@ -10,21 +10,22 @@ import backend.InteractionType;
 import backend.Statement;
 import backend.Transfer;
 import backend.Withdrawal;
+import backend.calendar.ConcreteCalendar;
 
 public class StatementDirector {
 
 	public StatementDirector() {
 	}
 	
-	public Statement createStatement(StatementBuilder builder, Interaction interaction) {
+	public Statement createStatement(StatementBuilder builder, Interaction interaction, ConcreteCalendar calendar) {
 		if(interaction instanceof Transfer)
-			return createTransferStatement(builder, (Transfer) interaction);
+			return createTransferStatement(builder, (Transfer) interaction, calendar);
 		if(interaction instanceof BillPayment)
-			return createBillStatement(builder, (BillPayment) interaction);
+			return createBillStatement(builder, (BillPayment) interaction, calendar);
 		if(interaction instanceof Withdrawal)
-			return createWithdrawalStatement(builder, (Withdrawal) interaction);
+			return createWithdrawalStatement(builder, (Withdrawal) interaction, calendar);
 		if(interaction instanceof Deposit)
-			return createDepositStatement(builder, (Deposit) interaction);
+			return createDepositStatement(builder, (Deposit) interaction, calendar);
 			
 		throw new IllegalArgumentException("Invalid transaction type.");
 	}
@@ -52,19 +53,20 @@ public class StatementDirector {
 			.setSenderIban(statementInfo.get(3))
 			.setDate(statementInfo.get(5))
 			.setTime(statementInfo.get(6))
-			.setReasoning(statementInfo.get(7));
+			.setReasoning(statementInfo.get(7))
+			.setID(Long.parseLong(statementInfo.get(8)));
 		
 		return builder.build();
 	}
 	
-	public Statement createTransferStatement(StatementBuilder builder, Transfer transfer) {
+	public Statement createTransferStatement(StatementBuilder builder, Transfer transfer, ConcreteCalendar calendar) {
 		builder.setType(InteractionType.TRANSFER)
 			.setStatus(transfer.getStatus())
 			.setAmount(transfer.getAmount())
 			.setReceiverIban(transfer.getReceiverIBAN())
 			.setSenderIban(transfer.getSenderIBAN())
-			.setDate(transfer.getDate())
-			.setTime(transfer.getTime());
+			.setDate(calendar.curDateString())
+			.setTime(calendar.curTimeString());
 		
 		if(transfer.getReason() != null)
 			builder.setReasoning(transfer.getReason());
@@ -72,33 +74,33 @@ public class StatementDirector {
 		return builder.build();
 	}
 	
-	public Statement createBillStatement(StatementBuilder builder, BillPayment billPayment) {
+	public Statement createBillStatement(StatementBuilder builder, BillPayment billPayment, ConcreteCalendar calendar) {
 		builder.setType(InteractionType.BILLPAYMENT)
 			.setStatus(billPayment.getStatus())
 			.setRfCode(billPayment.getRfCode())
 			.setAmount(billPayment.getAmount())
 			.setReceiverIban(billPayment.getReceiverIBAN())
 			.setSenderIban(billPayment.getSenderIBAN())
-			.setDate(billPayment.getDate())
-			.setTime(billPayment.getTime());
+			.setDate(calendar.curDateString())
+			.setTime(calendar.curTimeString());
 		
 		return builder.build();
 	}
 	
-	public Statement createWithdrawalStatement(StatementBuilder builder, Withdrawal withdrawal) {
+	public Statement createWithdrawalStatement(StatementBuilder builder, Withdrawal withdrawal, ConcreteCalendar calendar) {
 		builder.setType(InteractionType.WITHDRAWAL)
 			.setAmount(withdrawal.getAmount())
-			.setDate(withdrawal.getDate())
-			.setTime(withdrawal.getTime());
+			.setDate(calendar.curDateString())
+			.setTime(calendar.curTimeString());
 		
 		return builder.build();
 	}
 	
-	public Statement createDepositStatement(StatementBuilder builder, Deposit deposit) {
+	public Statement createDepositStatement(StatementBuilder builder, Deposit deposit, ConcreteCalendar calendar) {
 		builder.setType(InteractionType.DEPOSIT)
 		.setAmount(deposit.getAmount())
-		.setDate(deposit.getDate())
-		.setTime(deposit.getTime());
+		.setDate(calendar.curDateString())
+		.setTime(calendar.curTimeString());
 	
 	return builder.build();
 	}

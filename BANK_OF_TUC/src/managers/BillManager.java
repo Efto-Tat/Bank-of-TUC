@@ -11,6 +11,8 @@ import backend.BillPayment;
 import backend.BillRequest;
 import backend.BusinessAccount;
 import backend.ClientAccount;
+import backend.calendar.CalendarObserver;
+import backend.calendar.ConcreteCalendar;
 import builders.BillBuilder;
 import builders.BillPaymentBuilder;
 import builders.BillDirector;
@@ -18,21 +20,24 @@ import dataAccessObjects.BillDAO;
 import dataAccessObjects.BillPaymentDAO;
 import factories.DAOFactory;
 
-public class BillManager {
+public class BillManager implements CalendarObserver{
 	private static BillManager instance;
 	private BillDAO billDao;
 	private BillPaymentDAO paymentDAO;
 	private HashMap<String,Bill> bills;
 	private long rfCodeCounter;
 	private long idCounter;
+	private ConcreteCalendar calendar;
 	
 
-	public BillManager() {
+	private BillManager() {
 		this.billDao = (BillDAO) DAOFactory.createDAO("bills");
 		this.paymentDAO = (BillPaymentDAO) DAOFactory.createDAO("issuedBills");
 		this.bills = new HashMap<String, Bill>();
 		this.rfCodeCounter = 0;
 		this.idCounter = 0;
+		this.calendar = ConcreteCalendar.getCalendar();
+		calendar.register(this);
 	}
 	
 	public static BillManager getBillManager() {
@@ -44,6 +49,12 @@ public class BillManager {
 			return instance;
 	}
 	
+	
+	
+	public HashMap<String, Bill> getBills() {
+		return bills;
+	}
+
 	public void initBills() {
 		loadBills();
 		loadPayments();
@@ -148,11 +159,10 @@ public class BillManager {
 	}
 	
 	public void issuePayment(Bill bill) {
-		bill.decreaseRemainingIssues();
-		bill.addToTotal();
+		bill.whenPaymentIsIssued();
 		BillDirector director = new BillDirector();
 		BillPaymentBuilder builder = new BillPaymentBuilder();
-		BillPayment nextPayment = director.createPayment(builder, bill, idCounter);
+		BillPayment nextPayment = director.createPayment(builder, bill, idCounter, calendar);
 		idCounter++;
 		bill.getIssues().put(nextPayment.getbillID(), nextPayment);
 		ClientAccount receiver = (ClientAccount) AccountManager.getAccountManager().getAccounts().get(bill.getReceiverIBAN());
@@ -182,4 +192,15 @@ public class BillManager {
 		billDao.updateDatabase(bills);
 		paymentDAO.updateDatabase(bills);
 	}
+
+	@Override
+	public void onTimePass() {
+		Collection<Bill> allBills = bills.values();
+		for(Bill curBill : allBills) {
+			if(curBill.isDue(calendar)) {
+				issuePayment(curBill);
+			}
+		}
+	}
+	
 }

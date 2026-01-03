@@ -1,6 +1,9 @@
 package backend;
 
+import java.util.Calendar;
 import java.util.HashMap;
+
+import backend.calendar.ConcreteCalendar;
 
 public class Bill extends RepeatedPayment {
 	private float amountPerBill;
@@ -9,6 +12,7 @@ public class Bill extends RepeatedPayment {
 	private String rfCode;
 	private Integer issueFrequency;
 	private String dueDateForEach;
+	private String nextIssueDate;
 	private float totalAmountOwed;
 	private HashMap<String,BillPayment> issues;
 	
@@ -18,17 +22,37 @@ public class Bill extends RepeatedPayment {
 	
 	
 	
+	public void whenPaymentIsIssued() {
+		addToTotal();
+		decreaseRemainingIssues();
+		if(this.remainingIssues > 0)
+			calculateNextIssueDate();
+	}
+	
+	public void calculateNextIssueDate() {
+		int nextMonthOfIssue = ConcreteCalendar.getCalendar().getCurDate().get(Calendar.MONTH)+1+issueFrequency;
+		this.nextIssueDate = ConcreteCalendar.getCalendar().getCurDate().get(Calendar.YEAR)+"-"+nextMonthOfIssue+"-"+dayOfIssue;
+	}
+	
+	public boolean isDue(ConcreteCalendar calendar) {
+		return (calendar.dateCompare(this.nextIssueDate));
+	}
+	
+	public String getNextIssueDate() {
+		return nextIssueDate;
+	}
+
+	public void setNextIssueDate(String nextIssueDate) {
+		this.nextIssueDate = nextIssueDate;
+	}
+
 	public String getDueDateForEach() {
 		return dueDateForEach;
 	}
 
-
-
 	public void setDueDateForEach(String dueDateForEach) {
 		this.dueDateForEach = dueDateForEach;
 	}
-
-
 
 	public void decreaseRemainingIssues() {
 		this.remainingIssues--;
@@ -36,6 +60,10 @@ public class Bill extends RepeatedPayment {
 	
 	public void addToTotal() {
 		this.totalAmountOwed = totalAmountOwed + amountPerBill;
+	}
+	
+	public void subtractFromTotal() {
+		this.totalAmountOwed = totalAmountOwed - amountPerBill;
 	}
 	
 	public Integer getDayOfIssue() {

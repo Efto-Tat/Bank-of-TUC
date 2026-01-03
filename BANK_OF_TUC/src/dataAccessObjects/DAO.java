@@ -18,7 +18,7 @@ public abstract class DAO {
 		    String line;
 		    br.readLine();
 		    while ((line = br.readLine()) != null) {
-		        String[] values = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"); //regex?
+		        String[] values = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"); //regex
 		        readInfo.add(Arrays.asList(values));
 		    }
 		}

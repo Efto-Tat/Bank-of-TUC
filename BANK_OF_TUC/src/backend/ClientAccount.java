@@ -20,6 +20,14 @@ public abstract class ClientAccount extends Account{
 		this.pendingBillPayments = new HashMap<String,BillPayment>();
 	}
 	
+	public void removeBalance(float amount) {
+		this.balance = balance - amount;
+	}
+	
+	public void addBalance(float amount) {
+		this.balance = balance + amount;
+	}
+	
 	public HashMap<String, BillPayment> getPendingBillPayments() {
 		return pendingBillPayments;
 	}
@@ -40,22 +48,6 @@ public abstract class ClientAccount extends Account{
 	}
 
 
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
 	public String getAccountIBAN() {
 		return accountIBAN;

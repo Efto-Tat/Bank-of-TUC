@@ -6,6 +6,7 @@ public abstract class StandingOrder extends RepeatedPayment {
 	private String startDate;
 	private String endDate;
 	private float paymentFee;
+	private StandingOrderStatus status;
 	
 	public StandingOrder() {
 		// TODO Auto-generated constructor stub
@@ -16,6 +17,14 @@ public abstract class StandingOrder extends RepeatedPayment {
 	}
 	
 	
+
+	public StandingOrderStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(StandingOrderStatus status) {
+		this.status = status;
+	}
 
 	public void setStartDate(String startDate) {
 		this.startDate = startDate;

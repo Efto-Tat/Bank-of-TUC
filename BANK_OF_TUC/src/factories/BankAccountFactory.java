@@ -28,37 +28,31 @@ public class BankAccountFactory {
 		//}
 		if(user instanceof Business) {
 			BusinessAccount newBusiness = new BusinessAccount();
-			newBusiness.setUsername(accDetails.get(2));
 			newBusiness.setAccountIBAN(accDetails.get(0));
-			newBusiness.setPassword(accDetails.get(3));
-			newBusiness.setInterestRate(Float.parseFloat(accDetails.get(4)));
-			newBusiness.setBalance(Float.parseFloat(accDetails.get(5)));
-			newBusiness.setMonthlyFee(Float.parseFloat(accDetails.get(6)));
+			newBusiness.setInterestRate(Float.parseFloat(accDetails.get(2)));
+			newBusiness.setBalance(Float.parseFloat(accDetails.get(3)));
+			newBusiness.setMonthlyFee(Float.parseFloat(accDetails.get(4)));
 			newBusiness.setOwner(user);
 			((Business) user).setAccount(newBusiness);
 			return newBusiness;
 		}
 		else if(user instanceof Individual) {
-			IndividualAccount newIndividual = new IndividualAccount();
-			newIndividual.setUsername(accDetails.get(2));
-			newIndividual.setAccountIBAN(accDetails.get(0));
-			newIndividual.setPassword(accDetails.get(3));
-			newIndividual.setInterestRate(Float.parseFloat(accDetails.get(4)));
-			newIndividual.setBalance(Float.parseFloat(accDetails.get(5)));
-			newIndividual.setPrimaryHolder((Individual) user);
-			((Individual) user).getAccounts().put(newIndividual.getAccountIBAN(), newIndividual);
-			if(accDetails.size()>6) {
-				String secHolders = accDetails.get(6);
+			IndividualAccount newIndividualAcc = new IndividualAccount();
+			newIndividualAcc.setAccountIBAN(accDetails.get(0));
+			newIndividualAcc.setInterestRate(Float.parseFloat(accDetails.get(2)));
+			newIndividualAcc.setBalance(Float.parseFloat(accDetails.get(3)));
+			((Individual) user).getAccounts().put(newIndividualAcc.getAccountIBAN(), newIndividualAcc);
+			if(accDetails.size()>4) {
+				String secHolders = accDetails.get(4);
 				String[] splitHolders = secHolders.split(" ");
-				
 				for(int i=0; i<splitHolders.length; i++) {
-	  				AccountOwner secHolder = userDatabase.get(splitHolders[i]);
+	  				Individual secHolder = (Individual) userDatabase.get(splitHolders[i]);
 	  				System.out.println("Added Secondary Holder: "+secHolder.getName()+" "+secHolder.getAFM());
-	  				newIndividual.getSecondaryHolders().put(secHolder.getAFM(),((Individual)secHolder));
+	  				newIndividualAcc.getSecondaryHolders().put(secHolder.getAFM(),((Individual)secHolder));
 	  			}
 			}
-			newIndividual.setOwner(user);
-  			return newIndividual;
+			newIndividualAcc.setOwner(user);
+  			return newIndividualAcc;
 		}
 		
 		throw new IllegalArgumentException("Unknown account type."); 

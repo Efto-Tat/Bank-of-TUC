@@ -26,8 +26,6 @@ public class BillStandingOrderDAO extends DAO{
 				bw.write(",");
 				bw.write(curOrder.getDescription());
 				bw.write(",");
-				bw.write(curOrder.getSenderIBAN()); //ADD OWNER NAME
-				bw.write(",");
 				bw.write("€"+Float.toString(((BillStandingOrder) curOrder).getMaxAmount()));
 				bw.write(",");
 				bw.write(curOrder.getStartDate());

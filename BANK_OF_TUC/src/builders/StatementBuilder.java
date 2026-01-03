@@ -66,6 +66,9 @@ public class StatementBuilder {
 		return this;
 	}
 	
-	
+	public StatementBuilder setID(long id) {
+		this.statement.setID(id);
+		return this;
+	}
 }
 

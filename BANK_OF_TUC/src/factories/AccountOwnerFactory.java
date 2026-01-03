@@ -14,19 +14,25 @@ public class AccountOwnerFactory {
 		if(accountType.equals("INDIVIDUAL")) {
 			Individual newIndividual = new Individual();
 			newIndividual.setName(personalInfo.get(1));
-			newIndividual.setAFM(personalInfo.get(2));
+			newIndividual.setAFM(personalInfo.get(4));
+			newIndividual.setUsername(personalInfo.get(2));
+			newIndividual.setPassword(personalInfo.get(3));
 			return newIndividual;
 		}
 		if(accountType.equals("BUSINESS")) {
 			Business newBusiness = new Business();
 			newBusiness.setName(personalInfo.get(1));
-			newBusiness.setAFM(personalInfo.get(2));
+			newBusiness.setAFM(personalInfo.get(4));
+			newBusiness.setUsername(personalInfo.get(2));
+			newBusiness.setPassword(personalInfo.get(3));
 			return newBusiness;
 		}
 		if(accountType.equals("ADMIN")) {
 			Admin newAdmin = new Admin();
 			newAdmin.setName(personalInfo.get(1));
-			newAdmin.setAFM(personalInfo.get(2));
+			newAdmin.setAFM(personalInfo.get(4));
+			newAdmin.setUsername(personalInfo.get(2));
+			newAdmin.setPassword(personalInfo.get(3));
 			return newAdmin;
 		}
 		throw new IllegalArgumentException("Unknown account type.");

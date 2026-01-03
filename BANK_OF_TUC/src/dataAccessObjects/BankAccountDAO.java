@@ -21,16 +21,12 @@ public class BankAccountDAO extends DAO{
 	public void updateDatabase(HashMap<String,Account> accounts) { //Maybe improve this?
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter("bankAccounts.csv"))){
 			Collection<Account> bankAccounts = accounts.values();
-			bw.write("ACCOUNT IBAN, AFM, USERNAME, PASSWORD, INTEREST, BALANCE, SECONDARY HOLDERS/MONTHLY FEE");
+			bw.write("ACCOUNT IBAN,PRIMARY HOLDER AFM, INTEREST, BALANCE, SECONDARY HOLDERS/MONTHLY FEE");
 			bw.newLine();
 			for(Account curAcc : bankAccounts) {
 				bw.write(((ClientAccount) curAcc).getAccountIBAN());
 				bw.write(",");
 				bw.write(curAcc.getOwner().getAFM());
-				bw.write(",");
-				bw.write(curAcc.getUsername());
-				bw.write(",");
-				bw.write(curAcc.getPassword());
 				bw.write(",");
 				bw.write(formatInterest(Float.toString(((ClientAccount) curAcc).getInterestRate())));
 				bw.write(",");

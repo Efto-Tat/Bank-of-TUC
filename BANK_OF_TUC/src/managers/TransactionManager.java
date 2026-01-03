@@ -1,7 +1,6 @@
 package managers;
 
-import backend.ClientAccount;
-import builders.TransactionBuilder;
+import commands.TransactionCommand;
 
 public class TransactionManager {
 	private static TransactionManager instance;
@@ -15,6 +14,10 @@ public class TransactionManager {
 		if(instance == null)
 			instance = new TransactionManager();
 		return instance;
+	}
+	
+	public void executeTransaction(TransactionCommand command) {
+		command.execute();
 	}
 	
 	

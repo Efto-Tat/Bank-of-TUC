@@ -8,6 +8,7 @@ public class Statement {
 	private String senderIBAN;
 	private String receiverIBAN;
 	private String rfCode;
+	private long ID;
 	private String date;
 	private String time;
 	private String reasoning;
@@ -17,7 +18,18 @@ public class Statement {
 	}
 	
 	
-	
+	public long getID() {
+		return ID;
+	}
+
+
+
+	public void setID(long iD) {
+		ID = iD;
+	}
+
+
+
 	public float getBalanceAfter() {
 		return balanceAfter;
 	}

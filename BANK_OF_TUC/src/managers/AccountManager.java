@@ -2,11 +2,15 @@ package managers;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
 import backend.Account;
+import backend.AccountOwner;
 import backend.ClientAccount;
+import backend.Individual;
+import backend.IndividualAccount;
 import dataAccessObjects.BankAccountDAO;
 import factories.BankAccountFactory;
 import factories.DAOFactory;
@@ -22,6 +26,8 @@ public class AccountManager {
 		this.accFactory = new BankAccountFactory();
 		this.accounts = new HashMap<String, Account>();
 	}
+	
+	
 	
 	public HashMap<String,Account> getAccounts(){
 		return accounts;
@@ -65,7 +71,10 @@ public class AccountManager {
 	public void addAccount(List<String> accDetails) {
 		Account newAcc = accFactory.createBankAccount(accDetails, UserManager.getUserManager().getUsers());
 		accounts.put(((ClientAccount) newAcc).getAccountIBAN(), newAcc);
-		System.out.println("Added account: "+newAcc.getUsername()+" "+((ClientAccount) newAcc).getAccountIBAN());
+	}
+	
+	public void addHolder(Individual secHolder, IndividualAccount primaryHolder) {
+		primaryHolder.getSecondaryHolders().put(secHolder.getAFM(), secHolder);
 	}
 	
 	public void updateDB() {

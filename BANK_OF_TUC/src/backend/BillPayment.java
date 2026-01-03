@@ -9,6 +9,7 @@ public class BillPayment extends Transaction{
 	public BillPayment() {
 		// TODO Auto-generated constructor stub
 	}
+	
 
 	public String getRfCode() {
 		return rfCode;

@@ -1,4 +1,2 @@
-
-TRANSFER,SUCCESFUL,receiverIBAN,senderIBAN,fakeRFCode,date,time,reasoning
-TRANSFER,SUCCESFUL,receiverIBAN,senderIBAN,fakeRFCode,date,time,reasoning
-TRANSFER,SUCCESFUL,receiverIBAN,senderIBAN,fakeRFCode,date,time,reasoning
+TYPE, STATUS, RECEIVER IBAN, SENDER IBAN,RF CODE (NULL IF NOT A BILL PAYMENT), DATE, TIME, REASONING, STATEMENT ID
+TRANSFER,SUCCESFUL,067688302,067688304,,"2026-01-02","23:32","Nice job with the projects",1000

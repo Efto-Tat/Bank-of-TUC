@@ -3,7 +3,6 @@ package backend;
 import java.util.HashMap;
 
 public class IndividualAccount extends ClientAccount {
-	Individual primaryHolder;
 	HashMap<String,Individual> secondaryHolders;
 	
 	public IndividualAccount() {
@@ -25,13 +24,6 @@ public class IndividualAccount extends ClientAccount {
 		this.secondaryHolders = secondaryHolders;
 	}
 
-	public Individual getPrimaryHolder() {
-		return primaryHolder;
-	}
-
-	public void setPrimaryHolder(Individual primaryHolder) {
-		this.primaryHolder = primaryHolder;
-	}
 	
 	
 	

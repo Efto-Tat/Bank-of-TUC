@@ -6,28 +6,13 @@ import backend.Bill;
 import backend.BillPayment;
 import backend.BillRequest;
 import backend.InteractionStatus;
+import backend.calendar.ConcreteCalendar;
 
 public class BillDirector {
 
 	public BillDirector() {
 		// TODO Auto-generated constructor stub
 	}
-	
-//	public BillRequest createRequestFromString(BillRequestBuilder builder, List<String> billInfo) {
-//		builder.setSenderIBAN(billInfo.get(0))
-//			.setRfCode(billInfo.get(1))
-//			.setRecipientIBAN(billInfo.get(2))
-//			.setAmountPerBill(Float.parseFloat(billInfo.get(3)));
-//		if(!billInfo.get(4).equals("")) {
-//			builder.setPerMonths(Integer.parseInt(billInfo.get(4)))
-//				.setDayOfIssue(Integer.parseInt(billInfo.get(5)))
-//				.setNumOfIssues(Integer.parseInt(billInfo.get(7)));
-//		}
-//		else
-//			builder.setNumOfIssues(1);
-//		
-//		return builder.build();
-//	}
 	
 	public Bill createBillFromFile(BillBuilder builder, List<String> billInfo) {
 		builder.setSenderIBAN(billInfo.get(0))
@@ -62,15 +47,15 @@ public class BillDirector {
 		return builder.build();
 	}
 	
-	public BillPayment createPayment(BillPaymentBuilder builder, Bill bill, long ID) {
+	public BillPayment createPayment(BillPaymentBuilder builder, Bill bill, long ID, ConcreteCalendar calendar) {
 		builder.setSenderIBAN(bill.getSenderIBAN())
 			.setRfCode(bill.getRfCode())
 			.setStatus(InteractionStatus.PENDING)
 			.setbillID(Long.toString(ID))
 			.setReceiverIBAN(bill.getReceiverIBAN())
 			.setAmount(bill.getAmountPerBill())
-			.setDateIssued("DATE ISSUED") //ADD CALENDAR STUFF!!!
-			.setDueDate("DUE DATE");
+			.setDateIssued(calendar.curDateString()) 
+			.setDueDate(null); //IMPLEMENT DUE DATES!!!
 		return builder.build();
 	}
 	

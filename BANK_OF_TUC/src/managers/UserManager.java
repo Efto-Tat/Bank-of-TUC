@@ -2,6 +2,7 @@ package managers;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import backend.AccountOwner;
@@ -17,6 +18,16 @@ public class UserManager{
 	private UserManager() {
 		this.userDao = (UserDAO) DAOFactory.createDAO("users");
 		this.users = new HashMap<String, AccountOwner>();
+	}
+	
+	public AccountOwner checkLoginInfo(String username, char[] password) {
+		Collection<AccountOwner> allUsers = users.values();
+		
+		for(AccountOwner curUser : allUsers) {
+			if(curUser.getUsername().equals(username) && curUser.getPassword().equals(String.valueOf(password)))
+				return curUser;
+		}
+		return null;
 	}
 	
 	public HashMap<String, AccountOwner> getUsers() {
